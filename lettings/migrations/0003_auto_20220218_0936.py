@@ -8,7 +8,7 @@ from lettings.models import Address, Letting
 def populate(apps, shema_editor):
     """
     Forgot ".save()" in previous migration.
-    """    
+    """
     lettings = models.Letting.objects.all()
     for letting in lettings:
         letting_address = Address.objects.get(id=letting.address.id)

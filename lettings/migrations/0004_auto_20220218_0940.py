@@ -7,7 +7,7 @@ from lettings.models import Address, Letting
 def populate(apps, shema_editor):
     """
     Forgot to add "populate" in "operations".
-    """    
+    """
     lettings = models.Letting.objects.all()
     for letting in lettings:
         letting_address = Address.objects.get(id=letting.address.id)
