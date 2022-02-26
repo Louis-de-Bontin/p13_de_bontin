@@ -39,7 +39,7 @@ class TestProfileView(ProfileTestCase):
         assert expected_profile in content
         assert response.status_code == 200
         assertTemplateUsed(response, 'profiles_index.html')
-    
+
     def test_view_should_return_profile(self):
         response = self.client.get(reverse('profile', kwargs={'username': 'The King'}))
         content = response.content.decode()
@@ -61,9 +61,9 @@ class TestProfileUrl(ProfileTestCase):
         path = reverse('profiles_index')
         assert path == '/profiles/'
         assert resolve(path).view_name == 'profiles_index'
-    
-    def test_url_index(self):
-        path = reverse('profile', kwargs={'username':'The Queen'})
+
+    def test_url_detail(self):
+        path = reverse('profile', kwargs={'username': 'The Queen'})
         assert path == '/profiles/The%20Queen/'
         assert resolve(path).view_name == 'profile'
 
