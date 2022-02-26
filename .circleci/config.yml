@@ -1,16 +1,26 @@
 version: 2.1
-
-workflows:
-  build-deploy:
-    jobs:
-      - build-deploy
-
+orbs:
+  python: circleci/python@1.1.0
 jobs:
-  build-deploy:
-    machine: true
+  build:
+    executor: python/default
     steps:
       - checkout
+      - python/install-packages:
+          pkg-manager: pip
+      - python/install-packages:
+          pip-dependency-file: dev-requirements.txt
+          pkg-manager: pip
+      - python/install-packages:
+          args: pytest flake8
+          pkg-manager: pip
+          pypi-cache: false
       - run:
-        name: Build and push Docker image to Heroku
-        command: |
-          set -x
+          command: |
+            pytest --version
+            flake8
+          name: Test
+workflows:
+  main:
+    jobs:
+      - build
