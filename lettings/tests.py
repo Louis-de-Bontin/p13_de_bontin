@@ -27,7 +27,7 @@ class LettingTestCase(TestCase):
             zip_code=10000,
             country_iso_code='TH'
         )
-
+   
         Letting.objects.create(
             title='Ideo Mobi',
             address=Address.objects.get(id=1)
