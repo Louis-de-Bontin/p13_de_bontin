@@ -7,6 +7,9 @@ from lettings.models import Address, Letting
 
 
 class LettingTestCase(TestCase):
+    """
+    Test class for lettings app.
+    """
     def setUp(self):
         Address.objects.create(
             number=1,
