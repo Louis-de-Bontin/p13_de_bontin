@@ -1,0 +1,16 @@
+version: 2.1
+
+workflows:
+  build-deploy:
+    jobs:
+      - build-deploy
+
+jobs:
+  build-deploy:
+    machine: true
+    steps:
+      - checkout
+      - run:
+        name: Build and push Docker image to Heroku
+        command: |
+          set -x
