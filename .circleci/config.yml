@@ -12,7 +12,7 @@ jobs:
           pip-dependency-file: dev-requirements.txt
           pkg-manager: pip
       - python/install-packages:
-          args: pytest flake8
+          args: pytest
           pkg-manager: pip
           pypi-cache: false
       - run:
