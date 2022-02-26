@@ -1,26 +1,15 @@
 version: 2.1
 orbs:
-  python: circleci/python@1.1.0
+  docker: circleci/docker@2.0.2
 jobs:
-  build:
-    executor: python/default
+  example-job:
+    docker:
+      # replace with your preferred image
+      - image: cimg/base:stable
     steps:
-      - checkout
-      - python/install-packages:
-          pkg-manager: pip
-      - python/install-packages:
-          pip-dependency-file: requirements.txt
-          pkg-manager: pip
-      - python/install-packages:
-          args: pytest
-          pkg-manager: pip
-          pypi-cache: false
-      - run:
-          command: |
-            pytest --version
-            flake8
-          name: Test
+      - docker/build:
+          image: oc-lettings 
 workflows:
-  main:
+  example-workflow:
     jobs:
-      - build
+      - example-job
