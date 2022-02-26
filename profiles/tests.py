@@ -7,6 +7,9 @@ from profiles.models import Profile
 
 
 class ProfileTestCase(TestCase):
+    """
+    Test class for profile app.
+    """
     def setUp(self):
         User.objects.create(
             username='The King',
