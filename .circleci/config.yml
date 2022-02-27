@@ -20,6 +20,10 @@ jobs:
             pytest --version
             flake8
           name: Test
+      - run:
+        command: |
+          sudo docker push likhardcore/oc-lettings:latest
+        name: Dockerising
 workflows:
   main:
     jobs:
