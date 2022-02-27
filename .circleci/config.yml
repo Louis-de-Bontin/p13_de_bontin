@@ -34,9 +34,9 @@ jobs:
     executor: my-custom-executor
     steps:
       - checkout
-      - run: |
-          docker build -t likhardcore/oc-lettings .
-          docker push likhardcore/oc-lettings:latest
+      - run: docker-compose up --build
+      - run: docker build -t likhardcore/oc-lettings .
+      - run: docker push likhardcore/oc-lettings:latest
 
 workflows:
   main:
