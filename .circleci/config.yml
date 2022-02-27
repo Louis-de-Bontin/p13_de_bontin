@@ -35,8 +35,8 @@ jobs:
     steps:
       - checkout
       - run: |
-          sudo docker build -t likhardcore/oc-lettings .
-          sudo docker push likhardcore/oc-lettings:latest
+          docker build -t likhardcore/oc-lettings .
+          docker push likhardcore/oc-lettings:latest
 
 workflows:
   main:
