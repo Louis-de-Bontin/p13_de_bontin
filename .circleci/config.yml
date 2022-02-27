@@ -1,6 +1,15 @@
 version: 2.1
 orbs:
   python: circleci/python@1.1.0
+
+executors:
+  my-custom-executor:
+    docker:
+      - image: likhardcore/oc-lettings:latest
+        auth:
+          username: likhardcore
+          password: LLouis-321
+
 jobs:
   build:
     executor: python/default
@@ -19,11 +28,18 @@ jobs:
           command: |
             pytest --version
             flake8
-            sudo docker build -t likhardcore/oc-lettings .
-            sudo docker push likhardcore/oc-lettings:latest
           name: Test
+
+  docker_image:
+    executor: my-custom-executor
+    steps:
+      - checkout
+      - run: |
+          sudo docker build -t likhardcore/oc-lettings .
+          sudo docker push likhardcore/oc-lettings:latest
 
 workflows:
   main:
     jobs:
       - build
+      - docker_image
