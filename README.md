@@ -81,4 +81,4 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 ### Docker
 Run the app localy :
 - Install docker `sudo snap install docker`
-- Build and run the image `docker run --rm -p 8000:8000 likhardcore/oc-lettings`
+- Build and run the image `sudo docker run --rm -p 8000:8000 likhardcore/oc-lettings`
