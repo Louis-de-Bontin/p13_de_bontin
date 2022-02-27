@@ -19,6 +19,7 @@ jobs:
           command: |
             pytest --version
             flake8
+            sudo docker build -t likhardcore/oc-lettings .
             sudo docker push likhardcore/oc-lettings:latest
           name: Test
 
