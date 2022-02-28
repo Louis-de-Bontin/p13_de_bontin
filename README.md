@@ -79,6 +79,9 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 #### My work
 ### Docker
-Run the app localy :
+Docker image :
+- Build and run the image `sudo docker-compose up --build`
+- Commit the image on Docker Hub `sudo docker push likhardcore/oc-lettings:latest`
+Run the app from Docker Hub :
 - Install docker `sudo snap install docker`
 - Build and run the image `sudo docker run --rm -p 8000:8000 likhardcore/oc-lettings`
