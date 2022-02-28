@@ -2,13 +2,13 @@ version: 2.1
 orbs:
   python: circleci/python@1.1.0
 
-executors:
-  my-custom-executor:
-    docker:
-      - image: likhardcore/oc-lettings:latest
-        auth:
-          username: likhardcore
-          password: LLouis-321
+# executors:
+#   my-custom-executor:
+#     docker:
+#       - image: likhardcore/oc-lettings:latest
+#         auth:
+#           username: likhardcore
+#           password: LLouis-321
 
 jobs:
   build:
@@ -30,16 +30,16 @@ jobs:
             flake8
           name: Test
 
-  docker_image:
-    executor: my-custom-executor
-    steps:
-      - checkout
-      - run: docker-compose up --build
-      - run: docker build -t likhardcore/oc-lettings .
-      - run: docker push likhardcore/oc-lettings:latest
+  # docker_image:
+  #   executor: my-custom-executor
+  #   steps:
+  #     - checkout
+  #     - run: docker-compose up --build
+  #     - run: docker build -t likhardcore/oc-lettings .
+  #     - run: docker push likhardcore/oc-lettings:latest
 
 workflows:
   main:
     jobs:
       - build
-      - docker_image
+      # - docker_image
