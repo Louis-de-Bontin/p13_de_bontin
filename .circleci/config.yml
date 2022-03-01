@@ -1,6 +1,6 @@
 version: 2.1
-orbs:
-  python: circleci/python@1.1.0
+# orbs:
+#   python: circleci/python@1.1.0
 
 # # executors:
 # #   my-custom-executor:
