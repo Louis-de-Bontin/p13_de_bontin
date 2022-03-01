@@ -51,6 +51,8 @@ jobs:
       - image: likhardcore/oc-lettings
     steps:
       - checkout
+      - run: python3 -m venv env
+      - run: pip install -r requirements.txt
       - run: source env/bin/activate && flake8
       - run: source env/bin/activate && pytest
 
