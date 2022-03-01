@@ -48,18 +48,12 @@ orbs:
 jobs:
   build-and-test:
     docker:
-      - image: python3.9-slim-buster
+      - image: python:3.9-slim-buster
     steps:
       - checkout
-      - run:
-        name: Virtual environment
-        command: python3 -m venv env
-      - run:
-        name: Linting
-        command: source env/bin/activate && flake8
-      - run:
-        name: Tests
-        command: source env/bin/activate && pytest
+      - run: python3 -m venv env        
+      - run: source env/bin/activate && flake8
+      - run: source env/bin/activate && pytest
 
 workflows:
   main:
