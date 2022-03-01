@@ -63,3 +63,6 @@ jobs:
         name: Tests
         command: source env/bin/activate && pytest
         when: always
+
+workflows:
+  - build-and-test
