@@ -48,14 +48,9 @@ orbs:
 jobs:
   build-and-test:
     docker:
-      - image: python:3.9-slim-buster
+      - image: likhardcore/oc-lettings
     steps:
       - checkout
-      - run: apt-get install sudo -y
-      - run: sudo apt-get install gcc
-      - run: python3 -m venv env
-      - run: /usr/local/bin/python -m pip install --upgrade pip
-      - run: pip install -r requirements.txt
       - run: source env/bin/activate && flake8
       - run: source env/bin/activate && pytest
 
