@@ -65,4 +65,6 @@ jobs:
         when: always
 
 workflows:
-  - build-and-test
+  main:
+    jobs:
+      - build-and-test
