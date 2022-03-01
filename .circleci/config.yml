@@ -51,6 +51,7 @@ jobs:
       - image: python:3.9-slim-buster
     steps:
       - checkout
+      - run: apt-get install sudo -y
       - run: sudo apt-get install gcc
       - run: python3 -m venv env
       - run: /usr/local/bin/python -m pip install --upgrade pip
