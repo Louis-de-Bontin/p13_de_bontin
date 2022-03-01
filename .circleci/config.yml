@@ -1,50 +1,7 @@
 version: 2.1
-# orbs:
-#   python: circleci/python@1.1.0
-
-# # executors:
-# #   my-custom-executor:
-# #     docker:
-# #       - image: likhardcore/oc-lettings:latest
-# #         auth:
-# #           username: likhardcore
-# #           password: LLouis-321
-
-# jobs:
-#   build:
-#     executor: python/default
-#     steps:
-#       - checkout
-#       - python/install-packages:
-#           pkg-manager: pip
-#       - python/install-packages:
-#           pip-dependency-file: requirements.txt
-#           pkg-manager: pip
-#       - python/install-packages:
-#           args: pytest
-#           pkg-manager: pip
-#           pypi-cache: false
-#       - run:
-#           command: |
-#             pytest --version
-#             flake8
-#           name: Test
-
-#   # docker_image:
-#   #   executor: my-custom-executor
-#   #   steps:
-#   #     - checkout
-#   #     - run: docker-compose up --build
-#   #     - run: docker build -t likhardcore/oc-lettings .
-#   #     - run: docker push likhardcore/oc-lettings:latest
-
-# workflows:
-#   main:
-#     jobs:
-#       - build
-#       # - docker_image
 orbs:
   heroku: circleci/heroku@1.0.1
+
 jobs:
   build-and-test:
     docker:
@@ -55,8 +12,18 @@ jobs:
       - run: pip install -r requirements.txt
       - run: source env/bin/activate && flake8
       - run: source env/bin/activate && pytest
+  containerise:
+    machine: true
+    steps:
+      - checkout
+      - run: echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_USER --password-stoin
+      - run: docker build --tag ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} .
+      - run: docker push ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
 
 workflows:
   main:
     jobs:
       - build-and-test
+      - containerise:
+        requires:
+          - build-and-test
