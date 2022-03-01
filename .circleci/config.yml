@@ -54,15 +54,12 @@ jobs:
       - run:
         name: Virtual environment
         command: python3 -m venv env
-        when: always
       - run:
         name: Linting
         command: source env/bin/activate && flake8
-        when: always
       - run:
         name: Tests
         command: source env/bin/activate && pytest
-        when: always
 
 workflows:
   main:
