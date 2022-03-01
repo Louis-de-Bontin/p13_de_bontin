@@ -17,7 +17,7 @@ jobs:
     steps:
       - checkout
       - run: echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_USER --password-stdin
-      - run: docker build --tag ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} .
+      - run: docker build --latest ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} .
       - run: docker push ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
 
 workflows:
