@@ -2,44 +2,63 @@ version: 2.1
 orbs:
   python: circleci/python@1.1.0
 
-# executors:
-#   my-custom-executor:
-#     docker:
-#       - image: likhardcore/oc-lettings:latest
-#         auth:
-#           username: likhardcore
-#           password: LLouis-321
+# # executors:
+# #   my-custom-executor:
+# #     docker:
+# #       - image: likhardcore/oc-lettings:latest
+# #         auth:
+# #           username: likhardcore
+# #           password: LLouis-321
+
+# jobs:
+#   build:
+#     executor: python/default
+#     steps:
+#       - checkout
+#       - python/install-packages:
+#           pkg-manager: pip
+#       - python/install-packages:
+#           pip-dependency-file: requirements.txt
+#           pkg-manager: pip
+#       - python/install-packages:
+#           args: pytest
+#           pkg-manager: pip
+#           pypi-cache: false
+#       - run:
+#           command: |
+#             pytest --version
+#             flake8
+#           name: Test
+
+#   # docker_image:
+#   #   executor: my-custom-executor
+#   #   steps:
+#   #     - checkout
+#   #     - run: docker-compose up --build
+#   #     - run: docker build -t likhardcore/oc-lettings .
+#   #     - run: docker push likhardcore/oc-lettings:latest
+
+# workflows:
+#   main:
+#     jobs:
+#       - build
+#       # - docker_image
 
 jobs:
-  build:
-    executor: python/default
+  build-and-test:
+    docker:
+      - image: circleci/python3.9-slim-buster
     steps:
       - checkout
-      - python/install-packages:
-          pkg-manager: pip
-      - python/install-packages:
-          pip-dependency-file: requirements.txt
-          pkg-manager: pip
-      - python/install-packages:
-          args: pytest
-          pkg-manager: pip
-          pypi-cache: false
       - run:
-          command: |
-            pytest --version
-            flake8
-          name: Test
-
-  # docker_image:
-  #   executor: my-custom-executor
-  #   steps:
-  #     - checkout
-  #     - run: docker-compose up --build
-  #     - run: docker build -t likhardcore/oc-lettings .
-  #     - run: docker push likhardcore/oc-lettings:latest
-
-workflows:
-  main:
-    jobs:
-      - build
-      # - docker_image
+        name: Virtual environment
+        command: python3 -m venv env
+        when: always
+      -run:
+        name: Linting
+        command: source env/bin/activate && flake8
+        when: always
+      -run:
+        name: Tests
+        command: source env/bin/activate && pytest
+        when: always
