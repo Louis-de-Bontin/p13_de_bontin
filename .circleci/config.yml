@@ -48,7 +48,7 @@ orbs:
 jobs:
   build-and-test:
     docker:
-      - image: circleci/python3.9-slim-buster
+      - image: python3.9-slim-buster
     steps:
       - checkout
       - run:
