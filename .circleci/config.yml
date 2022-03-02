@@ -32,6 +32,14 @@ workflows:
       - containerise:
           requires:
             - build-and-test
+          filters:
+            branches:
+              only:
+                - main
       - deploy:
           requires:
             - containerise
+          filters:
+            branches:
+              only:
+                - main
