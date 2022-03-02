@@ -24,7 +24,7 @@ jobs:
     steps:
       - checkout
       - heroku/deploy-via-git
-      - run: ps:scale worker=1
+      - run: heroku ps:scale worker=1
 
 workflows:
   main:
