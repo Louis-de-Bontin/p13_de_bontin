@@ -1,1 +1,1 @@
-worker: python3 manage.py runserver
+worker: gunicorn c_lettings_site.wsgi --log-file -
