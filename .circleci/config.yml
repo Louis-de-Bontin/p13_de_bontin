@@ -23,7 +23,6 @@ jobs:
     executor: heroku/default
     steps:
       - checkout
-      - run: heroku config:set DISABLE_COLLECTSTATIC=1
       - heroku/deploy-via-git
       - run: ps:scale worker=1
 
