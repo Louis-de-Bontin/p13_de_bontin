@@ -1,1 +1,1 @@
-worker: gunicorn c_lettings_site.wsgi --log-file -
+worker: gunicorn oc_lettings_site.wsgi --log-file -
