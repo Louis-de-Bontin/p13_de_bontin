@@ -77,9 +77,9 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
 
 
-#### My work
+# My work
 
-### Deploy
+## Deploy
 You should always be working on a different branch than main. The branch "main" is reserved for the production phase. Indeed, pushing some code on the main branch will update the heroku app, which is not what we want during a development phase.<br>
 When you push a commit on any other branch, the CircleCI will still run, but only the tests and linting will be preformed. Here is the workflow you must adopt :
 - Pull the branch you need to work on
@@ -91,12 +91,12 @@ When you push a commit on any other branch, the CircleCI will still run, but onl
 So, as you can see, everything is automatic, the workflow has the same rules as usuall, and everything is taken care of by CircleCI. But, a particular rigor with the main branch is expected, because every push on it that passes the tests and linting would update the up application.
 
 ## What does CircleCI ?
-# Not branch main
+### Not branch main
 - Builds a virtual environment
 - Installs the dependencies in this environment
 - Runs the tests and the linting.
 - Signal on CircleCI and GitHub UXs if everything is ok, or not.
-# Branch main
+### Branch main
 - Proceeds to all actions described above
 - If something went wrong, stops and signals on CircleCI and GitHub UXs that something went wrong
 - Login to Docker Hub (username and password are stored in the evironment variables in CircleCI)
@@ -106,7 +106,7 @@ So, as you can see, everything is automatic, the workflow has the same rules as 
 - Deploys on heroku (requires the Heroku API key, and the application name in environment viriables on CircleCI)
 - Signals on CircleCI and GitHub UXs that everything is ok
 
-### Docker
+## Docker
 Run the app from Docker Hub :
 - Install docker `snap install docker`
 - Build and run the image `docker run --rm -p 8000:8000 likhardcore/oc-lettings`
