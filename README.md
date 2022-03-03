@@ -77,11 +77,36 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
 
 
-#### My work
-### Docker
-Docker image :
-- Build and run the image `sudo docker-compose up --build`
-- Commit the image on Docker Hub `sudo docker push likhardcore/oc-lettings:latest`
+# My work
+
+## Deploy
+You should always be working on a different branch than "main". The branch "main" is reserved for the production phase. Indeed, pushing some code on the "main" branch will update the heroku app, which is not what we want during a development phase.<br>
+When you push a commit on any other branch, the CircleCI will still run, but only the tests and linting will be preformed. Here is the workflow you must adopt :
+- Pull the branch you need to work on, or pull the branch "main", then do `git checkout -B NEW_BRANCH_NAME` to work on a different branch
+- Make the modifications locally
+- Run the tests and the linting localy to avoid pushing again and loosing time if anything fails
+- Push on the same branch on github (the tests and linting will proceed automaticly)
+- Once the team agree that the code is ready for deployment, merge the curent branch with "main" (the best practice would be to have a "ready_to_deploy" branch to perform the merging of all the work the team did to fix the conflicts and check all features implementations. Once it's done, you can perform the merge with the "main" branch. I was the only worker on that project, so no conflict should arise, this is why I decided to skip this step.)
+- CircleCI will automaticly proceed to test, lint, build docker image and push the code on Heroku, which will deploy the update<br><br>
+So, as you can see, everything is automatic, the workflow has the same rules as usuall, and everything in regard of the deployment is taken care of by CircleCI. But, a particular rigor with the "main" branch is expected, because every pushes on it that passes the tests and linting would update the running application on Heroku.
+
+## What does CircleCI ?
+### Not branch "main"
+- Builds a virtual environment
+- Installs the dependencies in this environment
+- Runs the tests and the linting.
+- Signal on CircleCI and GitHub UXs if everything is ok, or not.
+### Branch "main"
+- Proceeds to all actions described above
+- If something went wrong, stops and signals on CircleCI and GitHub UXs that something went wrong
+- Login to Docker Hub (username and password are stored in the evironment variables in CircleCI)
+- Builds the image, uses the repository name and the SHA1 hash available in the Variable CircleCI automaticly made while preparing the environment variables
+- Pushes the image to docker hub, using the same variables
+- If something went wrong, stops and signals on CircleCI and GitHub UXs that something went wrong
+- Deploys on heroku (requires the Heroku API key, and the application name in environment viriables on CircleCI)
+- Signals on CircleCI and GitHub UXs that everything is ok
+
+## Docker
 Run the app from Docker Hub :
-- Install docker `sudo snap install docker`
-- Build and run the image `sudo docker run --rm -p 8000:8000 likhardcore/oc-lettings`
+- Install docker `snap install docker`
+- Build and run the image `docker run --rm -p 8000:8000 likhardcore/oc-lettings`
