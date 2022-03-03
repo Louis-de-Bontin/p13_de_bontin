@@ -106,6 +106,15 @@ So, as you can see, everything is automatic, the workflow has the same rules as 
 - Deploys on heroku (requires the Heroku API key, and the application name in environment viriables on CircleCI)
 - Signals on CircleCI and GitHub UXs that everything is ok
 
+## Build an Heroku app
+- On the Heroku UX, create a new app
+- In the "deploy" section of the app, select GitHub, and link the app with the repository
+- Don't check the "Wait for CI to pass", and don't select "Enable Automatic Deploy"
+- In the "Manual Deploy" section, enter "main" in the "Name of Branch" section
+- And click on "Deploy Branch"
+- Update the environment variables on Heroku with the new application name
+- Now, every push on the main branch that passes the tests and the linting will update the application in production phase
+
 ## Docker
 Run the app from Docker Hub :
 - Install docker `snap install docker`
