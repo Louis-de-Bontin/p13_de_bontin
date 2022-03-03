@@ -108,11 +108,11 @@ So, as you can see, everything is automatic, the workflow has the same rules as 
 
 ## Build an Heroku app
 - On the Heroku UX, create a new app
-- In the "deploy" section of the app, select GitHub, and link the app with the repository
-- Don't check the "Wait for CI to pass", and don't select "Enable Automatic Deploy"
-- In the "Manual Deploy" section, enter "main" in the "Name of Branch" section
-- And click on "Deploy Branch"
+- Update the settings.py file with the new app name : `ALLOWED_HOSTS = ['NEW_APP_NAME.herokuapp.com', '127.0.0.1']`
 - Update the environment variables on Heroku with the new application name
+- In the "deploy" section of the app, select GitHub, and link the app with the repository
+- Check the "Wait for CI to pass", select "Enable Automatic Deploy"
+- Now, commit the update, and push it to github, then merge it.
 - Now, every push on the main branch that passes the tests and the linting will update the application in production phase
 
 ## Docker
