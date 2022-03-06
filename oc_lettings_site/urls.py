@@ -1,3 +1,4 @@
+from re import A
 from django.contrib import admin
 from django.urls import path
 
@@ -6,7 +7,12 @@ import profiles.views
 import oc_lettings_site.views
 
 
+def abc(request):
+    a = 2/0
+    return a
+
 urlpatterns = [
+    path('sentry-debug/', abc),
     path('', oc_lettings_site.views.index, name='index'),
     path('lettings/', lettings.views.index, name='lettings_index'),
     path('lettings/<int:letting_id>/', lettings.views.letting, name='letting'),
